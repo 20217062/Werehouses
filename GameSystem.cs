@@ -5,227 +5,230 @@ using UnityEngine.SceneManagement;
 
 public class GameSystem : MonoBehaviour
 {
-    public int G_Length = 5; //配列の高さ
-    public int G_Width = 5; //配列の幅
-    public int[,] Main_Object; //配列
-    public char Insert_Number; //オブジェクトのタイプ
-    [SerializeField] string Seed = "1111110301102011400111111"; //シード値
-    string Seed_copy;
-    [SerializeField] GameObject Zero; //空白
-    [SerializeField] GameObject One;  //壁
-    [SerializeField] GameObject Two;  //箱
-    [SerializeField] GameObject Three;//ゴール
-    [SerializeField] GameObject Four;//プレイヤー
-    int Rethu_x; //カーソルのx座標
-    int Rethu_y; //カーソルのy座標
-    public int Carsor; //カーソルの配列の位置
-    bool Fin = true; //終了フラグ
-    public int Number = 0; //配列の値
+    #region 変数
+    public int g_Length = 5; //配列の高さ
+    public int g_Width = 5; //配列の幅
+    public int[,] main_Object; //配列
+    public char insert_Number; //オブジェクトのタイプ
+    [SerializeField] string seed = "1111110301102011400111111"; //シード値
+    string seed_Copy; //シード値のコピー
+    [SerializeField] GameObject zero; //空白
+    [SerializeField] GameObject one;  //壁
+    [SerializeField] GameObject two;  //箱
+    [SerializeField] GameObject three;//ゴール
+    [SerializeField] GameObject four;//プレイヤー
+    private int rethu_X; //カーソルのx座標
+    private int rethu_Y; //カーソルのy座標
+    public int carsor; //カーソルの配列の位置
+    bool fin = true; //終了フラグ
+    public int number = 0; //配列の値
     int Undo = default;
-    public static int Walk = default;
+    public static int walk = default;
+    #endregion
+
     void Start()
     {
-        Seed_copy = Seed;
-        Main_Object = new int[G_Length,G_Width];
+        seed_Copy = seed;
+        main_Object = new int[g_Length,g_Width];
         StartArrangement();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            switch (Main_Object[Rethu_y - 1, Rethu_x])
+            switch (main_Object[rethu_Y - 1, rethu_X])
             {
                 case 0:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y - 1, Rethu_x] += 4;
-                    Rethu_y -= 1;
-                    Carsor -= G_Length;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y - 1, rethu_X] += 4;
+                    rethu_Y -= 1;
+                    carsor -= g_Length;
                     Undo = 1;
-                    Walk++;
+                    walk++;
                     break;
                 case 3:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y - 1, Rethu_x] += 4;
-                    Rethu_y -= 1;
-                    Carsor -= G_Length;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y - 1, rethu_X] += 4;
+                    rethu_Y -= 1;
+                    carsor -= g_Length;
                     Undo = 1;
-                    Walk++;
+                    walk++;
                     break;
                 case 2:
-                    if (Main_Object[Rethu_y - 2,Rethu_x] == 0 || Main_Object[Rethu_y - 2, Rethu_x] == 3)
+                    if (main_Object[rethu_Y - 2,rethu_X] == 0 || main_Object[rethu_Y - 2, rethu_X] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y - 1, Rethu_x] = 4;
-                        Main_Object[Rethu_y - 2, Rethu_x] += 2;
-                        Rethu_y -= 1;
-                        Carsor -= G_Length;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y - 1, rethu_X] = 4;
+                        main_Object[rethu_Y - 2, rethu_X] += 2;
+                        rethu_Y -= 1;
+                        carsor -= g_Length;
                         Undo = 1;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 case 5:
-                    if (Main_Object[Rethu_y - 2, Rethu_x] == 0 || Main_Object[Rethu_y - 2, Rethu_x] == 3)
+                    if (main_Object[rethu_Y - 2, rethu_X] == 0 || main_Object[rethu_Y - 2, rethu_X] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y - 1, Rethu_x] = 7;
-                        Main_Object[Rethu_y - 2, Rethu_x] += 2;
-                        Rethu_y -= 1;
-                        Carsor -= G_Length;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y - 1, rethu_X] = 7;
+                        main_Object[rethu_Y - 2, rethu_X] += 2;
+                        rethu_Y -= 1;
+                        carsor -= g_Length;
                         Undo = 1;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 default:
                     break;
             }
-            Finish();
+            finish();
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            switch (Main_Object[Rethu_y,Rethu_x - 1])
+            switch (main_Object[rethu_Y,rethu_X - 1])
             {
                 case 0:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y, Rethu_x - 1] += 4;
-                    Rethu_x -= 1;
-                    Carsor -= 1;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y, rethu_X - 1] += 4;
+                    rethu_X -= 1;
+                    carsor -= 1;
                     Undo = 2;
-                    Walk++;
+                    walk++;
                     break;
                 case 3:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y, Rethu_x - 1] += 4;
-                    Rethu_x -= 1;
-                    Carsor -= 1;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y, rethu_X - 1] += 4;
+                    rethu_X -= 1;
+                    carsor -= 1;
                     Undo = 2;
-                    Walk++;
+                    walk++;
                     break;
                 case 2:
-                    if (Main_Object[Rethu_y, Rethu_x - 2] == 0 || Main_Object[Rethu_y, Rethu_x - 2] == 3)
+                    if (main_Object[rethu_Y, rethu_X - 2] == 0 || main_Object[rethu_Y, rethu_X - 2] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y, Rethu_x - 1] = 4;
-                        Main_Object[Rethu_y, Rethu_x - 2] += 2;
-                        Rethu_x -= 1;
-                        Carsor -= 1;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y, rethu_X - 1] = 4;
+                        main_Object[rethu_Y, rethu_X - 2] += 2;
+                        rethu_X -= 1;
+                        carsor -= 1;
                         Undo = 2;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 case 5:
-                    if (Main_Object[Rethu_y, Rethu_x - 2] == 0 || Main_Object[Rethu_y, Rethu_x - 2] == 3)
+                    if (main_Object[rethu_Y, rethu_X - 2] == 0 || main_Object[rethu_Y, rethu_X - 2] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y, Rethu_x - 1] = 7;
-                        Main_Object[Rethu_y, Rethu_x - 2] += 2;
-                        Rethu_x -= 1;
-                        Carsor -= 1;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y, rethu_X - 1] = 7;
+                        main_Object[rethu_Y, rethu_X - 2] += 2;
+                        rethu_X -= 1;
+                        carsor -= 1;
                         Undo = 2;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 default:
                     break;
             }
-            Finish();
+            finish();
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            switch (Main_Object[Rethu_y + 1,Rethu_x])
+            switch (main_Object[rethu_Y + 1,rethu_X])
             {
                 case 0:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y + 1, Rethu_x] += 4;
-                    Rethu_y += 1;
-                    Carsor += G_Length;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y + 1, rethu_X] += 4;
+                    rethu_Y += 1;
+                    carsor += g_Length;
                     Undo = 3;
-                    Walk++;
+                    walk++;
                     break;
                 case 3:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y + 1, Rethu_x] += 4;
-                    Rethu_y += 1;
-                    Carsor += G_Length;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y + 1, rethu_X] += 4;
+                    rethu_Y += 1;
+                    carsor += g_Length;
                     Undo = 3;
-                    Walk++;
+                    walk++;
                     break;
                 case 2:
-                    if (Main_Object[Rethu_y + 2, Rethu_x] == 0 || Main_Object[Rethu_y + 2, Rethu_x] == 3)
+                    if (main_Object[rethu_Y + 2, rethu_X] == 0 || main_Object[rethu_Y + 2, rethu_X] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y + 1, Rethu_x] = 4;
-                        Main_Object[Rethu_y + 2, Rethu_x] += 2;
-                        Rethu_y += 1;
-                        Carsor += G_Length;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y + 1, rethu_X] = 4;
+                        main_Object[rethu_Y + 2, rethu_X] += 2;
+                        rethu_Y += 1;
+                        carsor += g_Length;
                         Undo = 3;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 case 5:
-                    if (Main_Object[Rethu_y + 2, Rethu_x] == 0 || Main_Object[Rethu_y + 2, Rethu_x] == 3)
+                    if (main_Object[rethu_Y + 2, rethu_X] == 0 || main_Object[rethu_Y + 2, rethu_X] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y + 1, Rethu_x] = 7;
-                        Main_Object[Rethu_y + 2, Rethu_x] += 2;
-                        Rethu_y += 1;
-                        Carsor += G_Length;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y + 1, rethu_X] = 7;
+                        main_Object[rethu_Y + 2, rethu_X] += 2;
+                        rethu_Y += 1;
+                        carsor += g_Length;
                         Undo = 3;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 default:
                     break;
             }
-            Finish();
+            finish();
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            switch (Main_Object[Rethu_y, Rethu_x + 1])
+            switch (main_Object[rethu_Y, rethu_X + 1])
             {
                 case 0:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y, Rethu_x + 1] += 4;
-                    Rethu_x += 1;
-                    Carsor += 1;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y, rethu_X + 1] += 4;
+                    rethu_X += 1;
+                    carsor += 1;
                     Undo = 4;
-                    Walk++;
+                    walk++;
                     break;
                 case 3:
-                    Main_Object[Rethu_y, Rethu_x] -= 4;
-                    Main_Object[Rethu_y, Rethu_x + 1] += 4;
-                    Rethu_x += 1;
-                    Carsor += 1;
+                    main_Object[rethu_Y, rethu_X] -= 4;
+                    main_Object[rethu_Y, rethu_X + 1] += 4;
+                    rethu_X += 1;
+                    carsor += 1;
                     Undo = 4;
-                    Walk++;
+                    walk++;
                     break;
                 case 2:
-                    if (Main_Object[Rethu_y, Rethu_x + 2] == 0 || Main_Object[Rethu_y, Rethu_x + 2] == 3)
+                    if (main_Object[rethu_Y, rethu_X + 2] == 0 || main_Object[rethu_Y, rethu_X + 2] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y, Rethu_x + 1] = 4;
-                        Main_Object[Rethu_y, Rethu_x + 2] += 2;
-                        Rethu_x += 1;
-                        Carsor += 1;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y, rethu_X + 1] = 4;
+                        main_Object[rethu_Y, rethu_X + 2] += 2;
+                        rethu_X += 1;
+                        carsor += 1;
                         Undo = 4;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 case 5:
-                    if (Main_Object[Rethu_y, Rethu_x + 2] == 0 || Main_Object[Rethu_y, Rethu_x + 2] == 3)
+                    if (main_Object[rethu_Y, rethu_X + 2] == 0 || main_Object[rethu_Y, rethu_X + 2] == 3)
                     {
-                        Main_Object[Rethu_y, Rethu_x] -= 4;
-                        Main_Object[Rethu_y, Rethu_x + 1] = 7;
-                        Main_Object[Rethu_y, Rethu_x + 2] += 2;
-                        Rethu_x += 1;
-                        Carsor += 1;
+                        main_Object[rethu_Y, rethu_X] -= 4;
+                        main_Object[rethu_Y, rethu_X + 1] = 7;
+                        main_Object[rethu_Y, rethu_X + 2] += 2;
+                        rethu_X += 1;
+                        carsor += 1;
                         Undo = 4;
-                        Walk++;
+                        walk++;
                     }
                     break;
                 default:
                     break;
             }
-            Finish();
+            finish();
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -239,74 +242,74 @@ public class GameSystem : MonoBehaviour
     }
     void StartArrangement() //スタートの処理
     {
-        Seed = Seed_copy;
-        Number = 0;
-        Walk = 0;
-        for (int i = 0; i < G_Length; i++)
+        seed = seed_Copy;
+        number = 0;
+        walk = 0;
+        for (int i = 0; i < g_Length; i++)
         {
-            for (int j = 0; j < G_Width; j++)
+            for (int j = 0; j < g_Width; j++)
             {
-                Insert_Number = Seed[Number];
-                print(Insert_Number);
-                switch (Seed[Number])
+                insert_Number = seed[number];
+                print(insert_Number);
+                switch (seed[number])
                 {
                     case '0':
-                        Instantiate(Zero, new Vector2(j, G_Length - i), Quaternion.identity, transform);
-                        Main_Object[i, j] = 0;
+                        Instantiate(zero, new Vector2(j, g_Length - i), Quaternion.identity, transform);
+                        main_Object[i, j] = 0;
                         break;
                     case '1':
-                        Instantiate(One, new Vector2(j, G_Length - i), Quaternion.identity, transform);
-                        Main_Object[i, j] = 1;
+                        Instantiate(one, new Vector2(j, g_Length - i), Quaternion.identity, transform);
+                        main_Object[i, j] = 1;
                         break;
                     case '2':
-                        Instantiate(Two, new Vector2(j, G_Length - i), Quaternion.identity, transform);
-                        Main_Object[i, j] = 2;
+                        Instantiate(two, new Vector2(j, g_Length - i), Quaternion.identity, transform);
+                        main_Object[i, j] = 2;
                         break;
                     case '3':
-                        Instantiate(Three, new Vector2(j, G_Length - i), Quaternion.identity, transform);
-                        Main_Object[i, j] = 3;
+                        Instantiate(three, new Vector2(j, g_Length - i), Quaternion.identity, transform);
+                        main_Object[i, j] = 3;
                         break;
                     case '4':
-                        Instantiate(Four, new Vector2(j, G_Length - i), Quaternion.identity, transform);
-                        Main_Object[i, j] = 4;
+                        Instantiate(four, new Vector2(j, g_Length - i), Quaternion.identity, transform);
+                        main_Object[i, j] = 4;
                         break;
                     default:
                         break;
                 }
-                if (Insert_Number == '4')
+                if (insert_Number == '4')
                 {
-                    Carsor = Number;
+                    carsor = number;
                 }
-                Number++;
+                number++;
 
             }
         }
-        Rethu_y = Carsor / G_Width;
-        Rethu_x = Carsor % G_Width;
+        rethu_Y = carsor / g_Width;
+        rethu_X = carsor % g_Width;
     }
-    void Finish()
+    void finish()
     {
-        while (Fin == true)
+        while (fin == true)
         {
-            for (int i = 0; i < G_Length; i++)
+            for (int i = 0; i < g_Length; i++)
             {
-                for (int j = 0; j < G_Width; j++)
+                for (int j = 0; j < g_Width; j++)
                 {
-                    if (Main_Object[i, j] == 2)
+                    if (main_Object[i, j] == 2)
                     {
-                        Fin = false;
+                        fin = false;
                     }
                 }
             }
             break;
         }
-        if (Fin == true)
+        if (fin == true)
         {
             SceneManager.LoadSceneAsync("Crear");
         }
         else
         {
-            Fin = true;
+            fin = true;
         }
     }
 }
