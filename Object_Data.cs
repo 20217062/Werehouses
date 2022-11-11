@@ -5,70 +5,70 @@ using UnityEngine;
 public class Object_Data : MonoBehaviour
 {
     #region 変数
-    public int Object_No;
-    public int Object_Type;
-    int Hairetu_x;
-    int Hairetu_y;
-    [SerializeField] SpriteRenderer zero; //空白
-    [SerializeField] SpriteRenderer one;  //壁
-    [SerializeField] SpriteRenderer two;  //箱
-    [SerializeField] SpriteRenderer three;//ゴール
-    [SerializeField] SpriteRenderer four;//プレイヤー
+    public int _objectNo;
+    public int _objectType;
+    int _hairethuX;
+    int _hairethuY;
+    [SerializeField] SpriteRenderer _zero; //空白
+    [SerializeField] SpriteRenderer _one;  //壁
+    [SerializeField] SpriteRenderer _two;  //箱
+    [SerializeField] SpriteRenderer _three;//ゴール
+    [SerializeField] SpriteRenderer _four;//プレイヤー
     #endregion
     void Awake()
     {
-        Object_No = GetComponentInParent<GameSystem>().number;
-        Hairetu_y = Object_No / GetComponentInParent<GameSystem>().g_Width;
-        Hairetu_x = Object_No % GetComponentInParent<GameSystem>().g_Width;
-        switch (GetComponentInParent<GameSystem>().insert_Number)
+        _objectNo = GetComponentInParent<GameSystem>()._number;
+        _hairethuY = _objectNo / GetComponentInParent<GameSystem>()._width;
+        _hairethuX = _objectNo % GetComponentInParent<GameSystem>()._width;
+        switch (GetComponentInParent<GameSystem>()._insertNumber)
         {
             case '0':
-                Object_Type = 0;
+                _objectType = 0;
                 break;
             case '1':
-                Object_Type = 1;
+                _objectType = 1;
                 break;
             case '2':
-                Object_Type = 2;
+                _objectType = 2;
                 break;
             case '3':
-                Object_Type = 3;
+                _objectType = 3;
                 break;
             case '4':
-                Object_Type = 4;
+                _objectType = 4;
                 break;
         }
     }
     private void FixedUpdate()
     {
-        if (Object_Type != GetComponentInParent<GameSystem>().main_Object[Hairetu_y, Hairetu_x])
+        if (_objectType != GetComponentInParent<GameSystem>()._mainObject[_hairethuY, _hairethuX])
         {
-            Object_Type = GetComponentInParent<GameSystem>().main_Object[Hairetu_y, Hairetu_x];
-            switch (Object_Type)
+            _objectType = GetComponentInParent<GameSystem>()._mainObject[_hairethuY, _hairethuX];
+            switch (_objectType)
             {
                 case 0:
-                    GetComponent<SpriteRenderer>().color = zero.color;
-                    GetComponent<SpriteRenderer>().sprite = zero.sprite;
+                    GetComponent<SpriteRenderer>().color = _zero.color;
+                    GetComponent<SpriteRenderer>().sprite = _zero.sprite;
                     break;
                 case 2:
-                    GetComponent<SpriteRenderer>().color = two.color;
-                    GetComponent<SpriteRenderer>().sprite = two.sprite;
+                    GetComponent<SpriteRenderer>().color = _two.color;
+                    GetComponent<SpriteRenderer>().sprite = _two.sprite;
                     break;
                 case 3:
-                    GetComponent<SpriteRenderer>().color = three.color;
-                    GetComponent<SpriteRenderer>().sprite = three.sprite;
+                    GetComponent<SpriteRenderer>().color = _three.color;
+                    GetComponent<SpriteRenderer>().sprite = _three.sprite;
                     break;
                 case 4:
-                    GetComponent<SpriteRenderer>().color = four.color;
-                    GetComponent<SpriteRenderer>().sprite = four.sprite;
+                    GetComponent<SpriteRenderer>().color = _four.color;
+                    GetComponent<SpriteRenderer>().sprite = _four.sprite;
                     break;
                 case 5:
-                    GetComponent<SpriteRenderer>().color = two.color;
-                    GetComponent<SpriteRenderer>().sprite = two.sprite;
+                    GetComponent<SpriteRenderer>().color = _two.color;
+                    GetComponent<SpriteRenderer>().sprite = _two.sprite;
                     break;
                 case 7:
-                    GetComponent<SpriteRenderer>().color = four.color;
-                    GetComponent<SpriteRenderer>().sprite = four.sprite;
+                    GetComponent<SpriteRenderer>().color = _four.color;
+                    GetComponent<SpriteRenderer>().sprite = _four.sprite;
                     break;
                 default:
                     break;

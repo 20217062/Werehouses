@@ -7,6 +7,6 @@ public class Walk : MonoBehaviour
 {
     void Update()
     {
-        GetComponent<Text>().text = ("•à”F" + GameSystem.walk);
+        GetComponent<Text>().text = ("•à”F" + GameSystem._walk);
     }
 }

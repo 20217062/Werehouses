@@ -6,29 +6,29 @@ using UnityEngine.UI;
 
 public class StageSerect : MonoBehaviour
 {
-    int Serectnumber = 1;
-    [SerializeField] int Uppernumber = 10;
+    int _serectNumber = 1;
+    [SerializeField] int _upperNumber = 10;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Serectnumber < Uppernumber)
+            if (_serectNumber < _upperNumber)
             {
-                Serectnumber += 1;
-                GetComponent<Text>().text = Serectnumber.ToString();
+                _serectNumber += 1;
+                GetComponent<Text>().text = _serectNumber.ToString();
             }
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (Serectnumber > 1)
+            if (_serectNumber > 1)
             {
-                Serectnumber -= 1;
-                GetComponent<Text>().text = Serectnumber.ToString();
+                _serectNumber -= 1;
+                GetComponent<Text>().text = _serectNumber.ToString();
             }
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadSceneAsync("Main_" + Serectnumber);
+            SceneManager.LoadSceneAsync("Main_" + _serectNumber);
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {

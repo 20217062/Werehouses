@@ -8,7 +8,7 @@ public class SceneChenger : MonoBehaviour
 {
     void Update()
     {
-        GameObject.Find("Walk").GetComponent<Text>().text = ("クリア歩数:" + GameSystem.walk);
+        GameObject.Find("Walk").GetComponent<Text>().text = ("クリア歩数:" + GameSystem._walk);
         if (Input.anyKeyDown)
         {
             SceneManager.LoadSceneAsync("Serect");
