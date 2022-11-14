@@ -10,12 +10,11 @@ public class GameSystem : MonoBehaviour {
     public int[,] _mainObject; //配列
     public char _insertNumber; //オブジェクトのタイプ
     [SerializeField] string _seed = "1111110301102011400111111"; //シード値
-    string _seed_Copy; //シード値のコピー
     [SerializeField] GameObject _zero; //空白
     [SerializeField] GameObject _one;  //壁
     [SerializeField] GameObject _two;  //箱
     [SerializeField] GameObject _three;//ゴール
-    [SerializeField] GameObject _four;//プレイヤー
+    [SerializeField] GameObject _four; //プレイヤー
     private int _rethuX; //カーソルのx座標
     private int _rethuY; //カーソルのy座標
     int _carsor; //カーソルの配列の位置
@@ -30,7 +29,6 @@ public class GameSystem : MonoBehaviour {
         int box = 2; //箱
         int goal = 3; //ゴール
         int player = 4; //プレイヤー
-        _seed_Copy = _seed; //シード値コピー
         _number = 0; //ナンバーを0で初期化
         _walk = 0; //歩数を0で初期化
         _mainObject = new int[_length, _width];
@@ -182,9 +180,9 @@ public class GameSystem : MonoBehaviour {
         }
         #endregion
         else if (Input.GetKeyDown(KeyCode.Space)) {
-            StartArrangement();
+            StartArrangement(); //Spase入力で初期状態を再現
         } else if (Input.GetKeyDown(KeyCode.Escape)) {
-            SceneManager.LoadScene("Serect");
+            SceneManager.LoadScene("Serect"); //Esc入力でセレクト画面に戻る
         }
     }
     void StartArrangement() //リスタートの処理

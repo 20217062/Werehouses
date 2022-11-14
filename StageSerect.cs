@@ -10,30 +10,30 @@ public class StageSerect : MonoBehaviour
     [SerializeField] int _upperNumber = 10;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))//上入力
         {
             if (_serectNumber < _upperNumber)
             {
                 _serectNumber += 1;
-                GetComponent<Text>().text = _serectNumber.ToString();
+                GetComponent<Text>().text = _serectNumber.ToString();//数字を1増加させてテキストに反映
             }
         }
-        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))//下入力
         {
             if (_serectNumber > 1)
             {
                 _serectNumber -= 1;
-                GetComponent<Text>().text = _serectNumber.ToString();
+                GetComponent<Text>().text = _serectNumber.ToString();//数字を1減少させてテキストに反映
             }
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadSceneAsync("Main_" + _serectNumber);
+            SceneManager.LoadSceneAsync("Main_" + _serectNumber);//スペース入力でステージ切替
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+                UnityEditor.EditorApplication.isPlaying = false;//Esc入力でゲーム終了
             #else
                 Application.Quit();//ゲームプレイ終了
             #endif

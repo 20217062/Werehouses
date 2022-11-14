@@ -22,10 +22,10 @@ public class Object_Data : MonoBehaviour
         int box = 2;
         int goal = 3;
         int player = 4;
-        _objectNo = GetComponentInParent<GameSystem>()._number;
-        _hairethuY = _objectNo / GetComponentInParent<GameSystem>()._width;
-        _hairethuX = _objectNo % GetComponentInParent<GameSystem>()._width;
-        switch (GetComponentInParent<GameSystem>()._insertNumber)
+        _objectNo = GetComponentInParent<GameSystem>()._number; //1次元配列の座標セット
+        _hairethuY = _objectNo / GetComponentInParent<GameSystem>()._width;//2次元配列y座標セット
+        _hairethuX = _objectNo % GetComponentInParent<GameSystem>()._width;//2次元配列x座標セット
+        switch (GetComponentInParent<GameSystem>()._insertNumber) //親スクリプトの現在のオブジェクトタイプを代入
         {
             case '0':
                 _objectType = blank;
