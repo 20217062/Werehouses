@@ -8,6 +8,9 @@ public class StageSerect : MonoBehaviour
 {
     int _serectNumber = 1;
     [SerializeField] int _upperNumber = 10;
+    private void Awake() {
+        GameSystem._walk = 0;
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))//è„ì¸óÕ
