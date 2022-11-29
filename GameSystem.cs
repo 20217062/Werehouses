@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour {
     #region 変数
-    public int _length = 5; //配列の高さ
-    public int _width = 5; //配列の幅
+    public int _length = default; //配列の高さ
+    public int _width = default; //配列の幅
     public int[,] _mainObject; //配列
     public char _insertNumber; //オブジェクトのタイプ
-    string[] _seedArray;//シード値
+    string[] _seedArray;//シード値の配列
     private string _seed = default; //シード値
     [SerializeField] private TextAsset _seedTxt;
     [SerializeField] private GameObject _zero; //空白マス：生成時に使用
@@ -36,9 +36,10 @@ public class GameSystem : MonoBehaviour {
     #endregion
 
     void Start() {
+        //配列にテキストの情報を入力、改行で区切る
         _seedArray = _seedTxt.text.Split(char.Parse("\n"));
         for (int i = 0;i < _number;i++) {
-            _seed = _seedArray[i];
+            _seed = _seedArray[i]; //(_number)行目の情報をシードに代入
         }
         _number = 0;
         _mainObject = new int[_length, _width];
@@ -85,9 +86,9 @@ public class GameSystem : MonoBehaviour {
         if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0) {
             _inputSwitch = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetButtonDown("Jump")) {
             StartArrangement(); //Spase入力で初期状態を再現
-        } else if (Input.GetKeyDown(KeyCode.Escape)) {
+        } else if (Input.GetButtonDown("Cancel")) {
             SceneManager.LoadScene("Serect"); //Esc入力でセレクト画面に戻る
         }
     }

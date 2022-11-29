@@ -29,11 +29,11 @@ public class StageSerect : MonoBehaviour
                 GetComponent<Text>().text = _serectNumber.ToString();//数字を1減少させてテキストに反映
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetButtonDown("Jump"))
         {
             SceneManager.LoadSceneAsync("Main_" + _serectNumber);//スペース入力でステージ切替
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetButtonDown("Cancel"))
         {
             #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;//Esc入力でゲーム終了
